@@ -36,5 +36,5 @@ uvicorn faiss_rag:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 PS: The prompt template for faiss_rag is inside the python file itself, while chroma_rag is from the data/prompt_templates directory
-
+Also adjust the similarity threshold in kwargs
 PS: check tailscale!, 

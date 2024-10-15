@@ -166,8 +166,8 @@ async def lifespan(app: FastAPI):
             db.persist()  # Persist the vectorstore to disk
 
     # loading the vectorstore
-    retriever = db.as_retriever(search_type="similarity",
-                                search_kwargs={"k": 4})
+    retriever = db.as_retriever(search_type="similarity_score_threshold",
+                                search_kwargs={"k": 4,'score_threshold': 0.00005})
 
     with open("data/prompt_template.txt", "r") as f:
         prompt_template = f.read()
