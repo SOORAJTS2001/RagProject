@@ -4,3 +4,8 @@
 /temp
 /temp_data
 .env
+
+.run/*.xml
+.ruff_cache
+.idea
+.idea/*
