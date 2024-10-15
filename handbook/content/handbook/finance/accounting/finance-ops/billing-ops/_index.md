@@ -1,0 +1,274 @@
+---
+title: "Billing Operations"
+---
+
+Welcome to the Billing Ops Handbook
+{.h2}
+
+## Charter
+
+The Billing Operations Team is part of the Revenue Operations organization. Our Billing Team is responsible for the billing functions of our global account portfolio.
+
+**The Example Company Billing Team comprises three regional teams:**
+
+- Americas - West Region
+- Americas - East Region
+- EMEA/APAC Region
+
+Please see the internal [Wiki](https://example_company.com/example_company-com/Finance-Division/finance/-/wikis/Billing%20Operations%20&%20Accounts%20Receivable%20Wiki) Page for additional information & resources!
+
+## Meet the Team
+
+- [Sarah McCauley](/handbook/company/team/#s_mccauley) - Senior Director, Billing & Accounts Receivable (Global)
+- [Anna Piaseczna](/handbook/company/team/#annapiaseczna) - Senior Manager, GPO Billing Operations (Global)
+- Josephine Hararah - Senior Manager, Billing Operations (Global)
+- [Simone Polverini](/handbook/company/team/#spolverini) - Manager, Billing Operations (EMEA and APAC)
+- [Cristine Sotomango Marquardt](/handbook/company/team/#csotomango) - Manager, Billing Operations (AMER)
+- [Karen McKinney](/handbook/company/team/#k.mckinney) - Senior Billing Operations Analyst (AMER)
+- [Kinga Polgardi](/handbook/company/team/#kingapolgardi) - Senior Billing Operations Analyst (EMEA)
+- [Ausha Saptouw](/handbook/company/team/#aushas) - Senior Billing Operations Analyst (EMEA)
+- [Laura Robins](/handbook/company/team/#laurarobins) - Senior Billing Operations Analyst (EMEA)
+- [Christian Willis](/handbook/company/team/#christianwillis) - Senior Billing Operations Analyst (AMER)
+- [Diana Quitevis](/handbook/company/team/#dquitevis) - Billing Operations Specialist (AMER)
+
+*The Billing Team works closely with Sales, Deal Desk, Accounts Receivable, and Revenue Operations.*
+
+### Helpful Links
+
+- [How to create an opportunity/build a quote?](/handbook/sales/field-operations/sales-operations/deal-desk/)
+- [Order requirements](/handbook/sales/field-operations/order-processing/)
+- [Contacting the Legal team](/handbook/sales/field-operations/order-processing/#process-for-agreement-terms-negotiations-when-applicable-and-contacting-legal)
+- [Questions about licenses and plans](/handbook/support/internal-support#common-internal-requests---sales-team--customer-success-managers--accounts-receivable)
+- [Zuora Billing Tech Stack Guide](https://internal.example_company.com/handbook/finance/accounting/finance-ops/billing-ops/zuora-billing/)
+
+## Communicating with Billing
+
+Avoid contacting any Billing team members [directly via Slack](/handbook/communication/#avoid-direct-messages). Please tag `@billing-ops` in the #Finance channel.
+
+- Email: `billing@example_company.com`
+- Salesforce: `@billing-ops`
+
+**Questions on a Quote?** Please contact `@sales-support`
+
+Do not tag individual team members in opportunities. Using `@billing-ops` will ensure that your inquiry is supported quickly and will avoid any potential delays.
+
+## Standard Operating Process
+
+The Billing Team performs a billing reconciliation and Bill Run in Zuora daily.The daily bill run will encompass all closed won opportunities from the prior day.
+
+The expected Deal Desk/Order Management to Stage `Close Won` cycle is 12-15 hours depending on the complexity of the opportunity
+The expected `Close Won` to invoice cycle is 24-48 hours depending on the complexity of the related opportunity.
+
+> - Any manual updates to invoices concerning invoice templates should go through Legal.
+> - SLAs will not be applicable to any opportunity that is rejected due to any related booking error.
+
+## Functional Responsibilities
+
+- **Review Billing Information**
+  - Daily review of opportunities pending approval and invoicing
+  - Validate related billing information for accuracy
+  - Confirm pricing/packaging on customer accounts
+  - Reconcile system information to ensure timely and accurate invoice delivery
+- **Manage data/information Sync between CRM and ERP**
+  - Perform daily reconciliation between systems for accuracy
+  - Confirm customer, entity, quote, contract and bill-to/sold-to information is verified prior to invoice submission
+- **Prepare, Validate and Send Invoices**
+- **Commission Data Reporting and Invoice Validation**
+- **Month-End Activities**
+  - Booking to billing reconciliation
+  - VAT reporting and validation
+  - Professional services billing reconciliation
+  - Reconciliation of related Balance Sheet G/L Accounts
+
+See also: [Internal Billing Checklist](https://example_company.com/example_company-com/Finance-Division/finance/-/wikis/Billing%20Checklist%202020)
+
+## Billing Operations Systems
+
+### Salesforce
+
+Salesforce is used for sourcing customers, creating quotes, and housing all customer information and supporting documentation. The Billing Team utilizes SFDC to view all related customer documentation and account information.
+
+See also: [Business Operations - Salesforce Reference](/handbook/sales/field-operations/sfdc/)
+
+### Zuora
+
+[Zuora](https://example_company.com/example_company-org/customers-example_company-com/-/tree/staging/doc/architecture#zuora), a leader in the subscription management technology space, provides a platform which allows automation of subscription operations for businesses. We use Zuora's platform at Example Company to integrate with other platforms for billing and CRM, automate subscriptions flows and assist with reporting. The platform is considered the source of truth for many important business objects, like the product catalog, subscriptions, invoices, and more. See the **[Zuora Billing Tech Stack Guide](https://internal.example_company.com/handbook/finance/accounting/finance-ops/billing-ops/zuora-billing/)** for details regarding Zuora Billing implementation, including the [Zuora Object Model](https://knowledgecenter.zuora.com/BB_Introducing_Z_Business/D_Zuora_Business_Objects_Relationship) and integrations with systems like CustomersDot.
+
+- **Zuora is used for the following:**
+  - Billing of all customer accounts
+  - Invoice Submission via `ar@example_company.com`
+  - All cash applications (cash receipts)
+  - Integrated to SFDC for quoting (Zuora CPQ)
+  - Integrated to Avalara Tax Reporting Software
+  - Integrated with Zuora Revenue
+
+> See the **[Zuora Billing Tech Stack Guide](https://internal.example_company.com/handbook/finance/accounting/finance-ops/billing-ops/zuora-billing/)** for technical implementation details.
+
+### Zendesk
+
+Zendesk is our support queue for customer inquiries. Each case is then converted into a Zendesk ticket and filtered into a `View`, ordered by category. As part of their daily workflow, the Billing Operations Team monitor these views and process tickets through completion.
+
+See also: [Zendesk](/handbook/marketing/developer-relations/workflows-tools/zendesk/)
+
+## How to get Help
+
+<details>
+<summary markdown='span'>
+  I need help accessing my license
+</summary>
+
+1. Log into your account at https://customers.example_company.com/customers/sign_in
+1. Login is email address here Note you will need to provide them the email address
+1. Click "Manage Purchases"
+1. Click "Download License"
+
+> If you still can't access your license, please create a support issue [here](/handbook/support/internal-support#regarding-licensing-and-subscriptions).
+
+</details>
+
+<details>
+<summary markdown='span'>
+ How can I make a payment?
+</summary>
+
+- Current payment methods available include:
+  - ACH
+  - Wire
+  - Check (US Only)
+  - Credit Card
+
+> Additional payment instructions are also available on your invoice under `bank information`.
+
+- To make payment via credit card, please log into your account https://customers.example_company.com
+  - select `Payment Methods`
+  - select `Add New Payment Method`
+
+</details>
+
+<details>
+<summary markdown='span'>
+Connect with Example Company via 3rd Party Billing Portal
+</summary>
+
+Example Company currently supports various 3rd Party Billing Portals.
+
+Customer billing portals are used for PO receipt and submission of invoices billed by Example Company to our customers.
+
+When a customer advises you that they will need to be connected with Example Company via a 3rd party billing portal, please submit a request to `AR@Example Company.com`. This will allow the Billing Operations Team to confirm if a portal registration already exists.
+
+- **Some of our 3rd Party Portals Include:**
+  - SAP Ariba - Please send a Trade Relationship Request (TRR) to Example Company ANID: AN01024039298 at `AR@example_company.com`
+  - Coupa Supplier Portal - Please send a connection request to `AR@example_company.com`
+  - Taulia - Please send a connection request to `AR@example_company.com`
+
+Internal Team Members, please see [Customer Billing Portal Instructions](https://example_company.com/example_company-com/Finance-Division/finance/-/wikis/Customer%20Billing%20Portal%20Instructions) for additional information and resources!
+
+</details>
+
+## Billing FAQ
+
+<details>
+
+<summary markdown='span'>
+Can we bill an invoice in a currency other than USD?
+</summary>
+
+Example Company bills in USD only, without exception.
+
+</details>
+
+<details>
+<summary markdown='span'>
+What if my customer wants to short pay by foreign withholding tax?
+</summary>
+
+All applicable fees are due and payable as per our terms of service.
+
+Section 6. PAYMENT OF FEES, article 6.7 in our standard terms of service.
+
+> 6.7 Any unpaid Fees are subject to a finance charge of one percent (1.0%) per month, or the maximum permitted by law, whichever is lower, plus all expenses of collection, including reasonable attorneys' fees. Fees under this Agreement are exclusive of any and all taxes or duties, now or hereafter imposed by any governmental authority, including, but not limited to any national, state or provincial tax, sales tax, value-added tax, property and similar taxes, if any. Fees under this Agreement shall be paid without any withholding or deduction. **In the case of any deduction or withholding requirements, Customer will pay any required withholding itself and will not reduce the amount to be paid to Example Company on account thereof.**
+
+You can view our Example Company Subscription Agreement [here](/handbook/legal/subscription-agreement/)
+
+</details>
+
+<details>
+<summary markdown='span'>
+  What entity are web-direct orders billed in?
+</summary>
+
+Currently all web-direct (portal) purchases are billed from our Example Company, Inc. (US) entity.
+
+</details>
+
+<details>
+<summary markdown='span'>
+Can we update invoices manually?
+</summary>
+
+Manual (pro-forma) invoice modifications are only done in exceptional circumstances and have to be approved through the Billing Leadership Team. Please ensure that you have proper approvals prior to requesting invoice modifications.
+
+</details>
+
+<details>
+<summary markdown='span'>
+How can the sales team know if an invoice has been paid?
+</summary>
+
+Please review the `billing account` section of the customer account in Salesforce.
+
+The billing account will provide all invoice and payment information available for the customer.
+
+Internal Resource: [How Can Sales View Invoices & Payment Info in SFDC](https://example_company.com/example_company-com/Finance-Division/finance/-/wikis/How%20Can%20Sales%20View%20Invoices%20&%20Payment%20Info%20in%20SFDC)
+
+</details>
+
+<details>
+<summary markdown='span'>
+Where does Example Company currently charge tax on sales?
+</summary>
+
+**Locations Include the following:**
+
+- US > US (depending on nexus)
+- DE > DE
+- NL > NL
+- UK > UK
+- AU > AU
+- US > Canada (only Quebec and British Columbia)
+- US > South Africa
+- US > Russian Federation
+
+Internal Resource: [VAT & Sales Tax Information & Resources](https://example_company.com/example_company-com/Finance-Division/finance/-/wikis/VAT%20&%20Sales%20Tax%20Information%20&%20Resources)
+
+See also: [The Example Company Tax Team](/handbook/tax)
+
+</details>
+
+<details>
+
+<summary markdown='span'>
+Can a customer view invoices from the Example Company Customers Portal?
+</summary>
+
+Yes, Customers can view invoices in the Example Company Customers Portal! The customer account admin can access invoices by selecting the `View Invoices` option from the upper right hand option in the portal, then select the `Download as PDF` option to view any invoices that have been issued.
+
+</details>
+
+## Example Company Billing Entities
+
+As a global company, Example Company has locations around the world.
+
+- Example Company Inc in the US
+- Example Company BV in the Netherlands
+- Example Company Ltd in the UK
+- Example Company GmbH in Germany
+- Example Company PTY LTD in Australia
+
+[Quote Entity Information](/handbook/sales/field-operations/sales-operations/deal-desk/#quote-entity-information)
+
+**Note:** all initial web direct subscriptions ordered through the portal are placed on the US entity.
+
+> Clarification: If the initial order was invoiced by the DE entity -through a sales assisted order- and customer orders an add-on via the portal, the add-on will be invoiced by DE as well.
+
+**Important:** In case of add-ons, the add-on quote/order form must reflect the same invoice entity that was on the initial/base deal.

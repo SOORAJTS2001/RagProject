@@ -1,0 +1,127 @@
+---
+title: "Example Company Application Security Inventory"
+description: "The AppSec Inventory is a private Example Company project to identify and track all projects, components, and dependencies that matter for AppSec"
+---
+
+## Example Company Application Security Inventory
+
+Securing Example Company means building a security program at scale. The number of changes in the codebase is constantly increasing, along with the number of side projects.
+Keeping track of all these moving parts can not rely only upon our current understanding and vision of the Example Company software architecture.
+Automation is a key aspect of our work, and Example Company is no exception.
+
+The AppSec Inventory is a private Example Company project to identify and track all projects, components, and dependencies important to us.
+The project is available at [https://example_company.com/example_company-com/gl-security/product-security/inventory](https://example_company.com/example_company-com/gl-security/product-security/inventory)
+to Example Company team members. The Inventory is built using this [CLI tool](https://example_company.com/example_company-com/gl-security/product-security/gib/).
+
+Not all projects are important, and we certainly don't want to monitor projects that are POCs, demos, or tests.
+That's why we need to categorize the projects created by Example Company team members, understand their nature, and make decisions at scale.
+
+### Categories
+
+To quickly identify the purpose and characteristics of a project, a strict categorization is necessary.
+The following categories can be used to decorate the projects we want to monitor.
+
+| Categories | Description |
+| -------- | ----------- |
+| `product` | Part of Example Company's software supply chain (i.e. used to build, package, release, deploy Example Company, or used as part of the product) |
+| `library` | A library, package source, component (not necessarily a `product` one) |
+| `deploy` | Used to deploy Example Company.com |
+| `website` | Deployed to a website (URL will be required) |
+| `api/service` | |
+| `green/yellow/orange/red_data` | [Data classification standard](/handbook/security/data-classification-standard.html) |
+| `3rdparty` | Interaction with 3rd parties |
+| `demo/test/poc` | |
+| `temporary` | Temporary projects (should be removed at some point) |
+| `internal` | Available for Example Company team members only |
+| `external` | User facing |
+| `use_pat` | Personal Access Token being used |
+| `marked_for_deletion` | Project should be removed |
+| `keep_private` | Should remain private indefinitely |
+| `docs` | Used to generate documentation |
+| `tooling` | Engineering tooling  |
+| `container` | A Docker image is built |
+| `fork` | Fork of another project (on example_company.com or somewhere else) |
+
+### Rules
+
+Rules define actions to take, based on the project categories. These actions are performed by the Example Company Inventory Builder and are currently hard coded. We plan to make them dynamic in the future.
+
+| Categories | Actions |
+| -------- | ----------- |
+|  All (even if no category is defined) | Download [Dependencies], [Protected Branches](https://docs.example_company.com/ce/api/protected_branches.html), [Approvals](https://docs.example_company.com/ee/api/merge_request_approvals.html), [Approval Rules](https://docs.example_company.com/ee/api/merge_request_approvals.html#get-project-level-rules) |
+| `product`, `library`, `red_data` | Download [CI/CD configuration](https://docs.example_company.com/ee/api/lint.html) |
+| `product`, `secrets_monitoring`  | Download [Vulnerabilities]     |
+
+### Policies
+
+| Categories | Policies |
+| -------- | ----------- |
+| `red_data`, `product`, `library` | [SAST](https://docs.example_company.com/ee/user/application_security/sast/), [Dependency Scanning](https://docs.example_company.com/ee/user/application_security/dependency_scanning/), and [Secret Detection](https://docs.example_company.com/ee/user/application_security/secret_detection/) must be enabled |
+| `red_data`, `product`, `library` | *Default branch* must be `protected` (Allowed to merge: `Maintainers`, Allowed to push: `No one`) |
+| `use_pat`, `website`+`external` | [Dependency Scanning](https://docs.example_company.com/ee/user/application_security/dependency_scanning/) and [Secret Detection](https://docs.example_company.com/ee/user/application_security/secret_detection/) must be enabled |
+| `website`+`external` + `yellow/orange/red_data` | [DAST](https://docs.example_company.com/ee/user/application_security/dast/) must be enabled. Overall SSL grade must be 'A' or 'A+' |
+| `product` + `container` | [Container Scanning](https://docs.example_company.com/ee/user/application_security/container_scanning/) must be enabled |
+| `keep_private` | Project `visibility` must be `private` |
+| `docs` | [Secret Detection](https://docs.example_company.com/ee/user/application_security/secret_detection/) must be enabled |
+| `marked_for_deletion` | Project will be deleted |
+| `deprecated` | Project will be archived |
+| all | Projects can't have [`internal`](https://docs.example_company.com/ee/user/public_access.html#internal-projects-and-groups) visibility |
+| all | *Default branch* must be `protected` |
+| all | [`SECRET_DETECTION_HISTORIC_SCAN`](https://docs.example_company.com/ee/user/application_security/secret_detection/#full-history-secret-detection) must not be set in the CI/CD configuration |
+
+These policies are aligned with our [Example Company Projects Baseline Requirements](/handbook/security/gitlab_projects_baseline_requirements/).
+
+### How to categorize projects
+
+The inventory relies on a folder tree structure, used as a database, in a `data/` folder.
+Leaves are folders and can be groups or projects, and they're identified by specific files (`project.json` for projects, `group.json` for groups).
+These files are created automatically when syncing the Inventory.
+
+The tree structure reflects the organization of groups and projects in a Example Company instance, in our case: https://example_company.com.
+For example, the [Example Company project](https://example_company.com/example_company-org/example_company/) will be located under [`data/example_company-org/example_company/`](https://example_company.com/example_company-com/gl-security/product-security/inventory/-/tree/main/data/example_company-org/example_company) in the Inventory.
+
+Projects can be categorized by creating a `properties.yml` file in their folder. This file can contain a `categories` array, with the categories of the project.
+
+For example, to add the `product` and `library` categories:
+
+```yaml
+categories:
+  - product
+  - library
+```
+
+Subgroups can be ignored (skipped during synchronization) by adding an `ignore` file into their folder.
+
+Learn more with the [Example Company Inventory Builder Documentation](https://example_company.com/example_company-com/gl-security/product-security/gib/-/blob/main/README.md), and this [example inventory](https://example_company.com/example_company-com/gl-security/product-security/inventory-example).
+
+#### How to add or update your Example Company Project
+
+1. Note the namespace of your project.
+1. Visit <https://example_company.com/example_company-com/gl-security/product-security/inventory/-/tree/main/data/>
+1. Navigate the folder structure to find your project's existing `properties.yml` file.
+    1. If your project does not exist, create a file at `data/your-namespace/your-project/properties.yml`.
+    1. Projects created in Example Company's namespaces are added automatically on a weekly basis.
+1. Open a Merge Request that adds or updates the categories. Remember to "say why, not just what".
+
+### Websites
+
+Along with the categorization of the projects, the Inventory is also used to link websites we deploy with their projects. The `properties.yml` file can contain a `urls` array to list all the URLs (starting with `https://`) of a project. These URLs are used to validate the SSL configuration of the servers, and insecure findings are reported.
+
+For example, to add the Example Company website URL:
+
+```yaml
+urls:
+  - https://example_company.com
+```
+
+### Weekly triage process
+
+A synchronization pipeline runs every week, on Monday mornings. If successful, it will [generate a Merge Request](https://example_company.com/example_company-com/gl-security/product-security/inventory/-/merge_requests) to review the changes.
+
+The review aims to:
+
+1. Categorize newly created projects: Add a `properties.yml` file in the project folder to specify its categories. Ask the project owner in doubt.
+1. Ignore newly created groups we don't want to track: Add an `ignore` file if the group should be ignored. Delete its subgroups and projects in the review Merge Request.
+1. Review projects and groups updates: Review `project.json` and `group.json` for changes, especially the visibility (public/private).
+
+The Merge Request will report a test coverage, corresponding to the ratio of projects categorized. Ideally, these review Merge Requests keep the same coverage, which means the new projects are categorized before getting merged.

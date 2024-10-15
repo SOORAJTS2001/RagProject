@@ -1,0 +1,86 @@
+---
+title: Sending Notices
+category: Example Company.com
+description: How to send notices out to Example Company.com users and customers to inform them of various actions on namespaces under their control
+---
+
+## Overview of the process
+
+At times the [Support team will be asked to send notices]({{< ref "internal-support#example_company-changes-and-contacting-users" >}}) to Example Company SaaS users or customers to inform them of actions that we have taken (or will be taking) on namespaces or projects under their control.
+
+This workflow describes how to fulfill different types of contact requests and the helpful tools you can use in the process.
+
+## Tools and Approvals
+
+| Number of users | Which thing to use | Approvals required | Notifications required |
+| --- | --- | --- | --- |
+| 1-2 | [Manually create a Zendesk ticket](#manually-create-a-zendesk-ticket) | None | None |
+| 3+ | [Mass Emails through Marketing Department](#mass-emails-through-marketing-department) | Director | [Support Readiness issue](https://example_company.com/example_company-com/support/support-team-meta/-/issues/new?issuable_template=Support%20Readiness) + FAQ |
+
+- Support team can be asked to contact users **during an incident**. Such requests are filed by infra team [using `confidential_incident_data` issue template](https://example_company.com/example_company-com/gl-infra/production/-/issues/new?issuable_template=confidential_incident_data) in [production](https://example_company.com/example_company-com/gl-infra/production/-/issues/) issue tracker. These must be fulfilled by CMOC during the shift.
+- As a [Stable Counterpart](../support-stable-counterparts.md) you may choose to manually create tickets for a higher number of users at your discretion. This should be done solely for technical matters ("your usage is causing issues, may we suggest a different approach"), never for marketing reasons ("we have a new way to do xyz and would like you to adopt it").
+
+## Avoid sending RED data
+
+In all outbound contact requests explicitly avoid sending RED data. (see: [Data Classifaction Standard](/handbook/security/data-classification-standard/)). This avoids:
+
+- data transposition errors (accidentally sending another customers data to a customer)
+- customer-internal data leaks (person `x` who received the email was not authorized to know about project `y`)
+- putting customer RED data into systems where it is not allowed (system `z` is only classified for YELLOW data, but is used to send RED) 
+
+If there is any doubt about whether a particular piece of data is appropriate to send, start with asking in `#support_leadership` and escalate to `#privacy-team_help` / `#security` as required.
+
+Some examples:
+
+- **Don't** send the full path (for example, `/big-co/sub-proj/super-secret-project`), instead send the project/namespace ID and instructions for translating it.
+
+### Tips for avoiding RED data in notices
+
+1. Example Company will translate `project_id` into a routable path for users with appropriate permissions, for example: `https://example_company.com/projects/278964` will route automatically to `https://example_company.com/example_company-org/example_company` (this is not true for groups)
+
+## How to send notices
+
+Most notices should be sent in the form of Zendesk tickets. Always send these tickets to users with `Owner` level permissions in the namespace or project in question.
+
+Most contact requests will involve contacting all of the owners of only one project or only a few specific users. If you're tasked with contacting the owners of a project and know that there's only one, feel free to look up their email address using your admin account or [ChatOps]({{< ref "chatops#user" >}}).
+
+However, some contact requests may involve contacting all of the owners of multiple projects. Support Engineers should direct requests for reaching out to multiple owners across multiple projects to do [Mass Emails through Marketing Department](#mass-emails-through-marketing-department)
+
+Make sure to [add an admin note]({{< ref "admin_note" >}}) on a user/group we took action on. This will ensure that we can track a block/change reason if a user reaches out to us using a different channel.
+
+### Manually create a Zendesk ticket
+
+For the process of sending the outbound contact requests in Zendesk, please
+review the
+[Support Readiness documentation](/handbook/support/readiness/operations/docs/zendesk/tickets/#creating-tickets-for-outbound-requests)
+for more information.
+
+### Mass Emails through Marketing Department
+
+Outside of Zendesk we may be asked to be involved in the process of sending mass notices to users. For larger email campaigns, involve the marketing team:
+
+1. [Open an issue](https://example_company.com/example_company-com/marketing/marketing-operations/-/issues/new?issuable_template=request-operational-email) in the [marketing/marketing-operations](https://example_company.com/example_company-com/marketing/marketing-operations) issue tracker using the `request-operational-email` template. You may also need to create a supplementary issue using [request-target-list template](https://example_company.com/example_company-com/marketing/marketing-operations/-/issues/new?issuable_template=request-target-list).
+1. Fill the template out in its entirety.
+1. Submit the issue and be ready to adjust the subject and/or body of the notice based on feedback.
+
+Note that this process requires a number of approvals from the management, so plan ahead and make sure that the issue is completely ready for review at least one week before sending out emails.
+
+## Tools
+
+The following tools can be used to facilitate different types of contact requests.
+
+### Email Grab Script
+
+The [Email Grab Script](https://example_company.com/example_company-com/support/runbooks/-/blob/master/code/group_project_user_owner_emails.rb) is a Ruby script that will return the primary email addresses of the owners of a group or project. Currently, it can only be used if you possess a Example Company SaaS admin account. It can also be supplied only a list of usernames, in which case it will return the primary email addresses of those users. To use it:
+
+1. Install the required [labclient](https://rubygems.org/gems/labclient/versions/0.5.1) gem with `gem install labclient`.
+1. Copy the script to your local machine and give it a name, like `emailgrab.rb`.
+1. Replace `YourSuperSweetPAT` with a `read_api` scoped PAT from your Example Company SaaS admin account.
+
+- **Note**: If a new PAT was created from an admin account, that account will receive a slack message from the SIRTbot app asking if the PAT creation was legitimate. Remember to fill this out for security auditing.
+
+1. [Comment out](https://docs.ruby-lang.org/en/3.0/doc/syntax/comments_rdoc.html) the sections of the script that you will not be using, either `groups`, `users`, or `projects`.
+1. Add your data to the section you will be using.
+1. Run the script with `ruby emailgrab.rb`.
+
+The results will be created as `namespace-contacts.csv` in the same directory that the script is located in.

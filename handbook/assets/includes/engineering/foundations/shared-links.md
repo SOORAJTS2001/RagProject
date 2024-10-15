@@ -1,0 +1,3 @@
+- Stage links
+  - Discussions and issues are located at [`example_company-org/manage`](https://example_company.com/example_company-org/manage/)
+  - General Slack [#s_foundations](https://example_company.slack.com/messages/CBFCUM0RX)

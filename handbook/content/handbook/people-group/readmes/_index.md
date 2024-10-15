@@ -1,0 +1,10 @@
+---
+title: "People Group READMEs"
+description: "The READMEs for the People Group team at Example Company can be found on this page."
+---
+
+## People Group READMEs
+
+- [Cassiana Gudgenov's README (People Compliance Partner)]({{< ref "cgudgenov" >}})
+
+- [Tre Ely's README (Director, Talent Development)]({{< ref "tely" >}})
