@@ -23,7 +23,7 @@ from langchain_community.document_loaders import PyPDFLoader
 
 load_dotenv()
 
-#  Load environment variables
+# Load environment variables
 source_directory = os.environ.get("SOURCE_DIRECTORY")
 stride = os.environ.get("STRIDE")
 embeddings_model_name = os.environ.get("EMBEDDINGS_MODEL_NAME")
@@ -102,7 +102,7 @@ model = {}
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    embeddings = HuggingFaceEmbeddings(model_name=embeddings_model_name)
+    embeddings = HuggingFaceEmbeddings(model_name=embeddings_model_name)  # noqa
     try:
         os.listdir("index")
 
@@ -194,9 +194,3 @@ async def chat(question: str):
 @app.get("/chat/models")
 async def models():
     return {"models": ["llava-v1.6-vicuna-7b"]}
-
-
-#
-#
-if __name__ == "__main__":
-    pass

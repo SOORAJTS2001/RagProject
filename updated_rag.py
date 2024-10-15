@@ -93,6 +93,10 @@ MAPPINGS = {
 }
 
 
+class ChatInput(BaseModel):
+    input: str
+
+
 def load_single_document(file_path: str) -> List[Document]:
     ext = "." + file_path.rsplit(".", 1)[-1]
     if ext in MAPPINGS:
@@ -159,55 +163,14 @@ async def lifespan(_app: FastAPI):
     retriever = db.as_retriever(
         search_type="similarity", search_kwargs={"k": target_source_chunks}
     )
-    prompt_template = """
-        <<SYS>>
-    You are a helpful assistant working in Example Company you know everything about the company , who can only provide answers based on the given summaries.
-    If the answer is not in the summaries,strictly respond with **I don't know**.
-    Remember, The user would be asking questions as an employee to you, Be Friendly
-    This is the holiday calender for the employee:
-    ## The Example Company Employee Leave Calendar for enquiry of leaves in 2024
 
-January
-- New Year's Day: On Monday, January 1, 2024, employees will celebrate the arrival of the new year. This marks the beginning of the calendar year and provides a day for rest and renewal.
-- Martin Luther King Jr. Day: Observed on Monday, January 15, 2024, this day commemorates the life and achievements of Dr. Martin Luther King Jr., a key figure in the civil rights movement.
+    with open("data/prompt_template.txt", "r") as f:
+        prompt_template = f.read()
 
-February
-- Presidents' Day (Washington's Birthday): On Monday, February 19, 2024, we honor the contributions of all U.S. presidents, with a special focus on the first president, George Washington.
-
-May
-- Memorial Day: Monday, May 27, 2024, is a day of remembrance for those who have died in military service to the United States. It also marks the unofficial beginning of summer.
-
-June
-- Juneteenth National Independence Day: On Wednesday, June 19, 2024, we celebrate the end of slavery in the United States, commemorating the day in 1865 when enslaved people in Texas were informed of their freedom.
-
-July
-- Independence Day: On Thursday, July 4, 2024, we celebrate the Declaration of Independence and the birth of the United States.
-
-September
-- Labor Day: On Monday, September 2, 2024, we honor the American labor movement and the contributions of laborers to the development of the country.
-
-October
-- Columbus Day: Observed on Monday, October 14, 2024, this holiday commemorates Christopher Columbus's arrival in the Americas, although it is recognized as Indigenous Peoples' Day in some states.
-
-November
-- Veterans Day: On Monday, November 11, 2024, we honor military veterans who have served in the U.S. Armed Forces.
-- Thanksgiving Day: On Thursday, November 28, 2024, we gather with family and friends to give thanks for the harvest and blessings of the past year.
-- Day After Thanksgiving: On Friday, November 29, 2024, this optional leave day is often taken to extend the Thanksgiving holiday.
-
-December
-- Christmas Day: On Wednesday, December 25, 2024, we celebrate Christmas, a holiday observed by many to commemorate the birth of Jesus Christ.
-
-    <</SYS>>
-    {summaries}\n\n
-    [INST]
-    User:{question}
-    [/INST]\n
-    Assistant:
-    """
-    PROMPT = PromptTemplate(
+    prompt = PromptTemplate(
         template=prompt_template, input_variables=["summaries", "question"]
     )
-    chain_type_kwargs = {"prompt": PROMPT}
+    chain_type_kwargs = {"prompt": prompt}
     llm = LlamaCpp(
         model_path=model_path,
         n_gpu_layers=400,
@@ -232,9 +195,7 @@ December
 
 app = FastAPI(lifespan=lifespan)
 app.mount("/static", StaticFiles(directory="handbook"), name="static")
-origins = [
-    "http://localhost:5173/",
-]
+origins = ["http://localhost:5173/"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -245,18 +206,14 @@ app.add_middleware(
 )
 
 
-class ChatInput(BaseModel):
-    input: str
-
-
 @app.get("/chat")
 async def chat(question: str):
     global model
-    logging.debug(f"QUESTION {question}")
+    logging.info(f"QUESTION {question}")
     response = model.invoke({"question": question})
     urls = []
     images = []
-    logging.debug(f"RESPONSE: {response}")
+    logging.info(f"RESPONSE: {response}")
     for doc in response.get("source_documents", []):
         if filename := doc.metadata.get("source"):
             urls.append(filename.replace("handbook", ""))
@@ -267,7 +224,3 @@ async def chat(question: str):
 @app.get("/chat/models")
 async def models():
     return {"models": ["llava-v1.6-vicuna-7b"]}
-
-
-if __name__ == "__main__":
-    pass
