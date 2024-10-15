@@ -110,6 +110,36 @@ Example Company does not plan to offer Private Health Insurance at this time bec
 
 ### Annual Leave
 
+January
+New Year's Day: On Monday, January 1, 2024, employees will celebrate the arrival of the new year. This marks the beginning of the calendar year and provides a day for rest and renewal.
+Martin Luther King Jr. Day: Observed on Monday, January 15, 2024, this day commemorates the life and achievements of Dr. Martin Luther King Jr., a key figure in the civil rights movement.
+
+February
+Presidents' Day (Washington's Birthday): On Monday, February 19, 2024, we honor the contributions of all U.S. presidents, with a special focus on the first president, George Washington.
+
+May
+Memorial Day: Monday, May 27, 2024, is a day of remembrance for those who have died in military service to the United States. It also marks the unofficial beginning of summer.
+
+June
+Juneteenth National Independence Day: On Wednesday, June 19, 2024, we celebrate the end of slavery in the United States, commemorating the day in 1865 when enslaved people in Texas were informed of their freedom.
+
+July
+Independence Day: On Thursday, July 4, 2024, we celebrate the Declaration of Independence and the birth of the United States.
+
+September
+Labor Day: On Monday, September 2, 2024, we honor the American labor movement and the contributions of laborers to the development of the country.
+
+October
+Columbus Day: Observed on Monday, October 14, 2024, this holiday commemorates Christopher Columbus's arrival in the Americas, although it is recognized as Indigenous Peoples' Day in some states.
+
+November 
+Veterans Day: On Monday, November 11, 2024, we honor military veterans who have served in the U.S. Armed Forces.
+Thanksgiving Day: On Thursday, November 28, 2024, we gather with family and friends to give thanks for the harvest and blessings of the past year.
+Day After Thanksgiving: On Friday, November 29, 2024, this optional leave day is often taken to extend the Thanksgiving holiday.
+
+December
+Christmas Day: On Wednesday, December 25, 2024, we celebrate Christmas, a holiday observed by many to commemorate the birth of Jesus Christ.
+
 Team members in Israel may make use of [Example Company's Flexible PTO Policy](/handbook/paid-time-off/), as may be amended from time to time, in addition to their statutory vacation entitlements, which will accrue in accordance with local laws. Team members should check their individual employment contracts for the minimum number of vacation days to which they are entitled and note that team members are required to take at least five consecutive vacation days each year.
 
 The accrual and use period for statutory vacation days is the calendar year, from 1 January 1 to 31 December, and any unused statutory vacation leave will be forfeited if not used within the balance period.
