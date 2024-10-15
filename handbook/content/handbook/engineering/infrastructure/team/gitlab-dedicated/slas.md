@@ -1,0 +1,82 @@
+---
+title: "Example Company Dedicated SLAs"
+---
+
+## Example Company Dedicated: Service Level Availability and Disaster Recovery Plan
+
+## Service Level Availability
+
+Service Level Availability is the percentage of time that Example Company Dedicated ("Dedicated") is in an available state for use by a customer over a given calendar month. This document defines how Service Level Availability is calculated for Dedicated.
+
+## Scope
+
+Example Company calculates Service Level Availability based on the available state of certain services and features provided with Dedicated. The services and features that are considered when calculating Service Level Availability include:
+
+| Service | Features |
+| ------ | ------ |
+| webservice | Example Company Issues, Merge Requests, CI Job Logs Page; Example Company API; Git Push, Pull, Clone Operations over HTTPS |
+| registry | Container Registry HTTPS requests |
+| example_company-shell | Git Push, Git Pull, Clone Operations over SSH|
+
+## Service Level Availability Calculation
+
+For each service and feature described above, Example Company measures two service level indicators ("SLIs"), as further described in https://example_company.com/example_company-com/runbooks/-/tree/master/reference-architectures/get-hybrid#service-level-indicators:
+
+1. The **Error SLI** is an indication of requests that are successful, (i.e. not returning a 5xx error).
+1. The **Apdex SLI** is an indicator of requests that complete with a satisfactory latency. Apdex is defined using the [industry definition](https://en.wikipedia.org/wiki/Apdex) with two latency thresholds: _satisfactory_ and _tolerable_. For Dedicated, satisfactory requests take less than 1s to complete, tolerable requests take less than 10s to complete.
+
+Combining these two SLIs, Example Company scores each request as follows:
+
+| Server Error? | Latency <= 1s | Latency <= 10s | Latency > 10s |
+| --- | --- | ------ | ------ |
+| No | 1 | 0.5 | 0 |
+| Yes | 0 | 0 | 0 |
+
+Service Level Availability is then calculated using the following measurement:
+
+For each calendar month, we calculate the sum of the combined SLI scores for all requests in that month, excluding any requests made during maintenance windows, and divide this by the total number of requests during that period (again, excluding maintenance windows).
+
+Service Level Availability = the sum of qualifying SLIs for the entire month divided by the total qualifying requests for the entire month. The Service Level Availability of Example Company Dedicated should meet or exceed the current Service Level Objective (defined below).
+
+## Current Service Level Objective
+
+Example Company's current monthly service level objective for Example Company Dedicated is 99.5% (the "Service Level Objective").
+
+## Exclusions
+
+Calculation of Service Level Availability does not include failures resulting from (1) misuses or misconfiguration of the applicable service or feature provided with Dedicated, (2) customer activity outside Example Company's terms of service, (3) components or services not defined in the Scope section (above), (4) factors outside of Example Company's reasonable control, such as force majeure events, or (5) Customer's or selected cloud hosting providers services, equipment or other technologies. Scheduled maintenance or urgent unscheduled system maintenance necessary to address critical issues (e.g. security vulnerabilities, data consistency issues, etc) are also not included in the calculation of Service Level Availability.
+
+## Disaster Recovery Plan
+
+Example Company has developed a disaster recovery plan (the "Plan") to minimize the impact of a disaster or other emergency impacting a customer's access to and use of Dedicated
+
+## DR Scope
+
+The Plan is scoped to disasters or other emergency events impacting the following:
+
+1. Partial region outage (e.g. AZ failure)
+2. Complete outage to primary region
+
+The recovery time objective ("Recovery Time Objective" or "RTO") for the Plan is based on how long it takes to re-provision the required infrastructure and restore data from the most recently available backup.
+
+The recovery point objective ("Recovery Point Objective" or "RPO") for the Plan is based on the frequency of snapshots across the data sources.
+
+In order to receive RPO and RTO targets, customers must specify a primary and secondary region upon onboarding and these regions must be supported by Example Company Dedicated. The list of regions that are supported by Example Company Dedicated [can be found here](https://docs.example_company.com/ee/subscriptions/gitlab_dedicated/#available-aws-regions).
+
+If a customer uses the [Bring your own domain feature](https://docs.example_company.com/ee/subscriptions/gitlab_dedicated/#bring-your-own-domain), the customer must update its Domain Name System ("DNS") configuration to fully restore the Dedicated service ("DNS Update"). The time required to trigger and complete a DNS Update will not count towards the calculation of RTO under the Plan.
+
+For customers who have only specified a primary region or in cases where a secondary region is not supported by Example Company Dedicated, Example Company will still make a good faith effort to recover pursuant to the Plan, but the RTO and RPO goals of the Plan will not be considered.
+
+Example Company regularly tests the Plan and will take all commercially reasonable efforts to ensure its success within the below RTO/RPO goals.
+
+## DR Exclusions
+
+Events that have a more severe impact in a customer's access to and use of Dedicated, such as loss to both primary and secondary regions, global internet outages, or data corruption issues, are out of scope from the Plan. Example Company will still make a good faith effort to recover pursuant to the Plan, but the RTO and RPO goals of the Plan will not be considered.
+
+## Current RTO Target
+
+8 hours
+
+## Current RPO Target
+
+4 hours

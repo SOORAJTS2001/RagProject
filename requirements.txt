@@ -1,0 +1,10 @@
+ollama
+requests
+imageio[ffmpeg]
+imageio-ffmpeg
+argparse
+tqdm
+langchain
+typing
+PyMuPDF
+langchain_huggingface

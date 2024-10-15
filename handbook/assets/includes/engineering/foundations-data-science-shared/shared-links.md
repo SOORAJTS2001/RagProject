@@ -1,0 +1,4 @@
+- Engineering links
+  - Manage and Data Science engineering discussion are located at [`example_company-org/manage/engineering-managers`](https://example_company.com/example_company-org/manage/engineering-managers)
+  - Social channel [#pikachus-social](https://example_company.slack.com/archives/GSEL4S98S)
+  - Engineering Manager Slack [#s_manage_data_science_ems](https://example_company.slack.com/archives/C01VAATSWNP)

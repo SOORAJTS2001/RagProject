@@ -1,0 +1,83 @@
+---
+title: "Security Risk Team"
+description: "Security Risk Team"
+---
+
+## Security Risk Mission{#security-risk-mission}
+
+To drive security risk treatment at Example Company by empowering teams to make informed and intelligent [decisions](/handbook/leadership/making-decisions/#making-decisions) through proactive identification, monitoring, prioritization, and reporting of security risks.
+
+## <i class="far fa-lightbulb" style="color:rgb(110,73,203)" aria-hidden="true"></i> Core Competencies{#core-competencies}
+
+---
+
+### Security Operational Risk Management (StORM) Program{#storm}
+
+The Security Risk team manages an integrated [Operational Risk Management](/handbook/security/security-assurance/security-risk/storm-program/) program focused on the identification, assessment, continuous monitoring, and reporting of Security Risks across the organization. Risk Reduction is 1 of 5 of the Security Department's operating principles ([Security Vision and Mission](/handbook/security/#i-classfas-fa-rocket-idbiz-tech-iconsi-security-vision-and-mission)). As such, the Security Risk Team takes a leading role in providing the information required by leadership to establish our Strategic Roadmap and our quarterly [Objectives and Key Results (OKRs)](/handbook/company/okrs/).
+
+ Visit the [StORM Program & Procedures]({{< ref "storm-program" >}}) handbook page for additional details, including a quick introduction to Risk Management at Example Company as well as information about the purpose, scope, and specific procedures executed as part of the program.
+
+{{% panel header="**Need to communicate a potential risk to the team?**" header-bg="warning" %}}
+Please refer to the [communication section of the StORM Program & Procedures]({{< ref "storm-program#communication-of-risks-to-the-security-risk-team" >}}) page for information on the various ways that team members can use to escalate potential risks to the Security Risk Team.
+{{% /panel %}}
+
+### Security Third Party Risk Management (TPRM) Program{#tprm}
+
+Example Company maintains an industry-leading [Third Party Risk Management (TPRM) Program](/handbook/security/security-assurance/security-risk/third-party-risk-management) through the use of automation, continuous monitoring, and deep integration across business functions to validate the security of Example Company data shared with external parties.
+
+The integration of Example Company's TPRM program within the vendor Procurement flow enables cross-functional [collaboration](/handbook/values/#collaboration) between Privacy, Legal, IT, and People Operations to facilitate [transparent](/handbook/values/#transparency), risk-based decision making, Business and Stakeholder-focused [Results](/handbook/values/#results), and adherence to Example Company's Regulatory and [Compliance Obligations](/handbook/security/security-assurance/security-compliance/certifications.html). The vendor relationships maintained through this program are leveraged to create efficiencies across the organization.
+
+### Business Impact Analysis (BIA) and Critical System Tiering (CST){#bia}
+
+The [Business Impact Analysis]({{< ref "business-impact-analysis" >}}) (BIA) helps determine the systems critical to serving Example Company's Customers.
+
+The output of the BIA is the designation of a [Critical System Tier](/handbook/security/security-assurance/security-risk/storm-program/critical-systems/) (CST) for a new system by the Security Risk Team.
+
+### Asset Inventory Maintenance{#asset-inventory}
+
+Establishing a complete and accurate inventory of assets is key to the success of Example Company's Risk Program. As such, the Security Risk Team collaborates closely with IT and Business Owners to ensure new systems are added to the [Tech Stack](/handbook/business-technology/tech-stack-applications/#roles-and-responsibilities).
+
+---
+
+## Team Members{#team-members}
+
+|Team Member|Role|
+|:----------:|:----------:|
+|[Ty Dilbeck](https://example_company.com/tdilbeck)|[Senior Manager, Security Risk](/job-families/security/security-leadership/#senior-manager-security)|
+|[Nirmal Devarajan](https://example_company.com/ndevarajan)|[Senior Security Risk Engineer](/job-families/security/security-assurance-job-family/#security-risk-1)|
+|[Eric Geving](https://example_company.com/ericgeving)|[Senior Security Risk Engineer](/job-families/security/security-assurance-job-family/#security-risk-1)|
+|[Ryan Lawson](https://example_company.com/rlawson1)|[Senior Security Risk Engineer](/job-families/security/security-assurance-job-family/#security-risk-1)|
+|[Kyle Smith](https://example_company.com/kylesmith2)|[Staff Security Risk Engineer](/job-families/security/security-assurance-job-family/#security-risk-2)|
+
+## Functional DRIs{#dris}
+
+While the [DRI](/handbook/people-group/directly-responsible-individuals/#characteristics-of-a-project-dri) is the individual who is ultimately held accountable for the success or failure of any given project, they are not necessarily the individual that does the tactical project work. The DRI should consult and collaborate with all teams and stakeholders involved to ensure they have all relevant context, to gather input/feedback from others, and to divide action items and tasks amongst those involved.
+
+DRIs are responsible for ensuring a [handbook-first approach](/handbook/company/culture/all-remote/handbook-first/) to their project(s) and challenging existing processes for [efficiency](/handbook/values/#efficiency).
+
+|Function     |DRI|
+|:----------:|:----------:|
+|[Annual Risk Assessment]({{< ref "storm-program#storm-procedures" >}})     |Kyle Smith|
+|[Business Impact Analysis]({{< ref "business-impact-analysis" >}})     |Nirmal Devarajan|
+|[New System Additions to Tech Stack and Post-Implementation Checks]({{< ref "tech-stack-applications" >}})     |Nirmal Devarajan|
+|[Critical System Tiering]({{< ref "critical-systems#determining-critical-system-tiers" >}})     |Kyle Smith|
+|[Ongoing SecRisk-Related Observations Management]({{< ref "observation-management-procedure#introduction-to-observation-management-at-example_company" >}})     |Nirmal Devarajan|
+|[Ongoing Risk Treatment](storm-program#storm-procedures)     |Kyle Smith|
+|[Ongoing TPRM Assessments]({{< ref "third-party-risk-management" >}})     |Ryan Lawson|
+|[Periodic SOX CUEC Facilitation]({{< ref "sox_cuec_mapping_procedure" >}})     |Eric Geving|
+|[Periodic TPRM Assessments]({{< ref "third-party-risk-management" >}})     |Eric Geving|
+|TPRM Data Quality and Emerging Requirements Management | Eric Geving |
+|[StORM Metrics and Reporting](storm-program#step-5-annual-storm-reports)     |Kyle Smith|
+|TPRM Metrics and Reporting     |Ryan Lawson|
+|TPRM Application Integrations  |Ryan Lawson|
+
+## Contact the Team{#contact}
+
+- <i class="fas fa-envelope fa-fw" style="color:rgb(219,59,33)" aria-hidden="true"></i> Email: `securityrisk@example_company.com`
+- <i class="fab fa-slack fa-fw" style="color:rgb(219,59,33)" aria-hidden="true"></i> Slack:
+  - [#security-risk-management channel](https://example_company.slack.com/archives/C01EKDNRVFD)
+  - [#sec-assurance channel](https://example_company.slack.com/archives/C0129P7DW75) (includes the broader Security Assurance Team)
+  - Mention `@security-risk`
+- <i class="fab fa-example_company fa-fw" style="color:rgb(219,59,33)" aria-hidden="true"></i> Example Company: Tag the team across Example Company using `@example_company-com/gl-security/security-assurance/security-risk-team`
+
+<a href="{{< ref "security-assurance" >}}" class="btn bg-primary text-white btn-lg">Return to the Security Assurance Homepage</a>
