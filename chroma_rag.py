@@ -166,8 +166,8 @@ async def lifespan(app: FastAPI):
             db.persist()  # Persist the vectorstore to disk
 
     # loading the vectorstore
-    retriever = db.as_retriever(search_type="similarity_score_threshold",
-                                search_kwargs={"k": target_source_chunks, 'score_threshold': 0.3})
+    retriever = db.as_retriever(search_type="similarity",
+                                search_kwargs={"k": 4})
 
     with open("data/prompt_template.txt", "r") as f:
         prompt_template = f.read()
@@ -215,7 +215,13 @@ async def chat(question: str):
     for doc in response.get("source_documents", []):
         if filename := doc.metadata.get("source"):
             urls.add(filename.replace("handbook", "", 1))
-    return {"Answer": response.get("answer"), "Images": images, "Urls": list(urls)}
+    answer = response.get("answer")
+    answer = answer.replace("[/SYS]","")
+    answer = answer.replace("[SYS]","")
+    answer = answer.replace("[INST]","")
+    answer = answer.replace("[/INST]","")
+    answer = answer.replace("[REDACT]","")
+    return {"Answer": answer, "Images": images, "Urls": list(urls)}
     # response.get("source_documents")
 
 

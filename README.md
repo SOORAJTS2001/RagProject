@@ -17,7 +17,7 @@ The project relies on the following files and external resources:
 * **Faiss**: Stores vectors in a Faiss index for efficient retrieval.
     * Index location: `updated_index` directory.
 * **Chroma**: Utilizes a Chroma-based approach for faster search performance.
-    * Index location: `chroma_index` file.
+    * Index location: `chroma_index` directory.
 
 ## Running the Project
 
@@ -35,4 +35,6 @@ uvicorn chroma_rag:app --host 0.0.0.0 --port 8000 --reload
 uvicorn faiss_rag:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-PS: check tailscale!
+PS: The prompt template for faiss_rag is inside the python file itself, while chroma_rag is from the data/prompt_templates directory
+
+PS: check tailscale!, 
