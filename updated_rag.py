@@ -15,17 +15,23 @@ from langchain.docstore.document import Document
 from langchain.prompts import PromptTemplate
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_community.llms import LlamaCpp
-from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_text_splitters import MarkdownHeaderTextSplitter
 from pydantic import BaseModel
-from starlette.staticfiles import StaticFiles
 from tqdm import tqdm
+
+from langchain.chains import RetrievalQAWithSourcesChain
+from langchain_community.llms import LlamaCpp
+from fastapi.staticfiles import StaticFiles
+from langchain_chroma import Chroma
+
+CHROMA_PERSIST_DIR = "chroma_db"
+if not os.path.exists(CHROMA_PERSIST_DIR):
+    os.makedirs(CHROMA_PERSIST_DIR)
+collection_name = "document_collection"
 
 load_dotenv()
 
-# Load environment variables
 source_directory = os.environ.get("SOURCE_DIRECTORY")
 stride = os.environ.get("STRIDE")
 embeddings_model_name = os.environ.get("EMBEDDINGS_MODEL_NAME")
@@ -111,9 +117,9 @@ def load_documents(source_dir: str, ignored_files: List[str] = []) -> List[Docum
     """
     results = []
     image_files = (
-        glob.glob(os.path.join(f"{source_dir}/static", "**/*.jpg"), recursive=True)
-        + glob.glob(os.path.join(f"{source_dir}/static", "**/*.jpeg"), recursive=True)
-        + glob.glob(os.path.join(f"{source_dir}/static", "**/*.png"), recursive=True)
+            glob.glob(os.path.join(f"{source_dir}/static", "**/*.jpg"), recursive=True)
+            + glob.glob(os.path.join(f"{source_dir}/static", "**/*.jpeg"), recursive=True)
+            + glob.glob(os.path.join(f"{source_dir}/static", "**/*.png"), recursive=True)
     )
     markdown_files = glob.glob(
         os.path.join(source_dir, "**/*.[mM][dD]"), recursive=True
@@ -123,7 +129,7 @@ def load_documents(source_dir: str, ignored_files: List[str] = []) -> List[Docum
     with Pool(processes=os.cpu_count()) as pool:
         with tqdm(total=len(all_files), desc="Loading documents", ncols=80) as pbar:
             for j, docs in enumerate(
-                pool.imap_unordered(load_single_document, all_files)
+                    pool.imap_unordered(load_single_document, all_files)
             ):
                 results.extend(docs)
                 pbar.update(1)
@@ -146,23 +152,20 @@ def process_documents(ignored_files: List[str] = []) -> List[Document]:
 async def lifespan(_app: FastAPI):
     embeddings = HuggingFaceEmbeddings(model_name=embeddings_model_name)  # noqa
     try:
-        os.listdir("updated_index")
-
+        os.listdir(CHROMA_PERSIST_DIR)
     except FileNotFoundError:
         print("Creating new vectorstore")
         texts = process_documents()
-        print(f"Creating embeddings. May take some minutes...")
-        db = FAISS.from_documents(texts, embeddings)
-        db.save_local("updated_index")
-        print(f"Ingestion complete! You can now query your visual documents")
+        print("Creating embeddings. May take some minutes...")
+        # Create Chroma vectorstore
+        db = Chroma.from_documents(texts, embeddings, persist_directory=CHROMA_PERSIST_DIR)
+        db.persist()  # Save Chroma DB locally
+        print("Ingestion complete! You can now query your visual documents")
 
-    # loading the vectorstore
-    db = FAISS.load_local(
-        "updated_index", embeddings, allow_dangerous_deserialization=True
-    )
-    retriever = db.as_retriever(
-        search_type="similarity", search_kwargs={"k": target_source_chunks}
-    )
+    # Load the Chroma vectorstore
+    db = Chroma(persist_directory=CHROMA_PERSIST_DIR, embedding_function=embeddings)
+    retriever = db.as_retriever(search_type="similarity_score_threshold",
+                                search_kwargs={"k": target_source_chunks, 'score_threshold': 0.8})
 
     with open("data/prompt_template.txt", "r") as f:
         prompt_template = f.read()
@@ -190,7 +193,6 @@ async def lifespan(_app: FastAPI):
         chain_type_kwargs=chain_type_kwargs,
     )
     yield
-    # Clean up the ML models and release the resources
 
 
 app = FastAPI(lifespan=lifespan)
