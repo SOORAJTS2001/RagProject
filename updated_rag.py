@@ -157,12 +157,10 @@ async def lifespan(_app: FastAPI):
         print("Creating new vectorstore")
         texts = process_documents()
         print("Creating embeddings. May take some minutes...")
-        # Create Chroma vectorstore
         db = Chroma.from_documents(texts, embeddings, persist_directory=CHROMA_PERSIST_DIR)
-        db.persist()  # Save Chroma DB locally
+        db.persist()
         print("Ingestion complete! You can now query your visual documents")
 
-    # Load the Chroma vectorstore
     db = Chroma(persist_directory=CHROMA_PERSIST_DIR, embedding_function=embeddings)
     retriever = db.as_retriever(search_type="similarity_score_threshold",
                                 search_kwargs={"k": target_source_chunks, 'score_threshold': 0.8})
