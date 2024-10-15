@@ -217,7 +217,12 @@ async def chat(question: str):
     for doc in response.get("source_documents", []):
         if filename := doc.metadata.get("source"):
             urls.append(filename.replace("handbook", ""))
-    return {"Answer": response.get("answer"), "Images": images, "Urls": urls}
+    answer = response.get("answer")
+    return {
+        "Answer": answer.strip() if answer else answer,
+        "Images": images,
+        "Urls": urls,
+    }
     # response.get("source_documents")
 
 
